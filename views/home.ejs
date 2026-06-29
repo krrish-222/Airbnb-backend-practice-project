@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Home page</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <a class="btn-add" href="/add-home">Add Home</a>
+    </header>
+    <main>
+        <h1>Here are your registered homes</h1>
+        <div class="allRegisteredHomes">
+            <% 
+                allHomes.forEach((home)=>{%>
+                    <div class="homeCard">
+                        <img class="homeImage" src="<%=  home.imageUrl%>" alt="Home image">
+                        <div class="homeInfo">
+                            <h2 class="homeTitle"><%=  home.houseName%></h2>
+                            <p class="meta">Email: <%=  home.email%></p>
+                            <p class="meta">Price / night: <%=  home.price%></p>
+                            <p class="meta">Location: <%=  home.location%></p>
+                            <p class="meta">Rating: <span class="rating"><%=  home.rating%></span>/10</p>
+                        </div>
+                    </div>
+                <%})
+            %>
+        </div>
+    </main>
+</body>
+</html>

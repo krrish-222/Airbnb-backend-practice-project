@@ -1,0 +1,88 @@
+:root{
+    --bg-start: #667eea;
+    --bg-end: #764ba2;
+    --card: #ffffff;
+    --text: #243142;
+    --muted: #6b7a89;
+}
+
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+}
+
+header{
+    background:transparent;
+    padding:18px 28px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+
+.btn-add{
+    display:inline-block;
+    text-decoration:none;
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color:white;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:600;
+    box-shadow:0 10px 30px rgba(102,126,234,0.18);
+}
+
+main{
+    max-width:1100px;
+    margin:34px auto;
+    padding:28px;
+    background:var(--card);
+    border-radius:12px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.18);
+}
+
+main h1{
+    margin:0 0 18px;
+    font-size:1.6rem;
+    color:#222;
+}
+
+.allRegisteredHomes{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+    gap:20px;
+}
+
+.homeCard{
+    background:linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(0,0,0,0.08);
+    display:flex;
+    flex-direction:column;
+    transition:transform .18s ease, box-shadow .18s ease;
+}
+.homeCard:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.12)}
+
+.homeImage{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    background:#eee;
+    display:block;
+}
+
+.homeInfo{padding:14px 16px 18px}
+.homeTitle{margin:0 0 8px;font-size:1.05rem;color:var(--text)}
+.meta{margin:4px 0;color:var(--muted);font-size:0.95rem}
+.rating{color:var(--bg-end);font-weight:700}
+
+@media (max-width:420px){
+    .homeImage{height:130px}
+    header{padding:12px}
+    .btn-add{padding:8px 10px}
+    main{margin:18px 12px;padding:18px}
+}
