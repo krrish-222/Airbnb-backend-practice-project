@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <%- include(`../partials/nav`) %>
+    </header>
+    <main>
+        <h1>Home Details</h1>
+        <% if (hometoshow) { %>
+            <div class="detailWrapper">
+                <div class="detailCard">
+                    <img class="detailImage" src="<%= hometoshow.imageUrl %>" alt="<%= hometoshow.houseName %>">
+                </div>
+                <div class="detailCard detailContent">
+                    <h2 class="detailHeading"><%= hometoshow.houseName %></h2>
+                    <p class="meta">A perfect stay in <strong><%= hometoshow.location %></strong>.</p>
+                    <ul class="detailList">
+                        <li><span>Price per night</span><strong>₹<%= hometoshow.price %></strong></li>
+                        <li><span>Rating</span><strong><%= hometoshow.rating %>/10</strong></li>
+                        <li><span>Contact</span><strong><%= hometoshow.email %></strong></li>
+                        <li><span>Home ID</span><strong><%= hometoshow.id %></strong></li>
+                    </ul>
+                    <div class="detailFooter">
+                        <a class="btn-back" href="/home">Back to homes</a>
+                    </div>
+                </div>
+            </div>
+        <% } else { %>
+            <p class="meta">Sorry, we could not find the selected home.</p>
+            <a class="btn-back" href="/home">Back to homes</a>
+        <% } %>
+    </main>
+</body>
+</html>

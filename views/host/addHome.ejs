@@ -16,9 +16,19 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            position: relative;
+            padding: 100px 20px 20px;
+        }
+
+        /* Header wrapper so the nav partial can be positioned top-left */
+        .page-header{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 30;
         }
 
         .container {
@@ -162,10 +172,15 @@
             form {
                 gap: 15px;
             }
+            body{ padding:80px 16px 16px }
+            .page-header{ left:50%; transform:translateX(-50%)}
         }
     </style>
 </head>
 <body>
+    <div class="page-header">
+        <%- include(`../partials/nav`) %>
+    </div>
     <div class="container">
         <h1>Add Your Home</h1>
         <form action="/add-home" method="POST">

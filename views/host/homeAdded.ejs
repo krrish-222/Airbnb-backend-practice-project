@@ -148,7 +148,7 @@
 </head>
 <body>
     <header>
-        <a href="/add-home">Add Home</a>
+        <%- include(`../partials/nav`) %>
     </header>
     
     <div class="container">
@@ -157,7 +157,7 @@
         <p class="message">Congratulations! Your property has been added to our platform.</p>
         
         <div class="button-group">
-            <a href="/" class="btn-primary">Return to home</a>
+            <a href="/home" class="btn-primary">Return to home</a>
             <a href="/add-home" class="btn-secondary">Add Another Home</a>
         </div>
     </div>

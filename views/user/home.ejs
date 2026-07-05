@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+    
     <header>
-        <a class="btn-add" href="/add-home">Add Home</a>
+        <%- include(`../partials/nav`) %>
     </header>
     <main>
         <h1>Here are your registered homes</h1>
@@ -23,6 +24,7 @@
                             <p class="meta">Price / night: <%=  home.price%></p>
                             <p class="meta">Location: <%=  home.location%></p>
                             <p class="meta">Rating: <span class="rating"><%=  home.rating%></span>/10</p>
+                            <a href="/home/<%= home.id%>"><button >Details </button></a>
                         </div>
                     </div>
                 <%})
