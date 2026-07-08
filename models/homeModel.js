@@ -38,4 +38,47 @@ exports.Home = class Home{
         });
     }
 
+    static findById(homeId,callback){
+        Home.fetchAll((Homes)=>{
+            const foundhome = Homes.find((home)=>{
+                return home.id === homeId;
+            });
+            callback(foundhome);
+        })
+    }
+    static editHome(homeId,updatedHome){
+        Home.fetchAll((allHomes)=>{
+            const updatedAllHomes =  allHomes.filter((home)=>{
+                if(home.id !== homeId){
+                    return true;
+                }
+                return false;
+            })
+            updatedHome.id = homeId;
+            updatedAllHomes.push(updatedHome);
+            fs.writeFile(filePath,JSON.stringify(updatedAllHomes),(err)=>{
+            if(err){
+                console.log("Error writing to file : ",err);
+                return;
+            }
+        });
+        })
+    }
+    static deleteHome(homeId){
+        Home.fetchAll((allHomes)=>{
+            const updatedAllHomes =  allHomes.filter((home)=>{
+                if(home.id !== homeId){
+                    return true;
+                }
+                return false;
+            });
+            
+            fs.writeFile(filePath,JSON.stringify(updatedAllHomes),(err)=>{
+                if(err){
+                    console.log("Error writing to file : ",err);
+                    return;
+                }
+            });
+        });
+    }
 }

@@ -1,8 +1,7 @@
 const {Home} = require("../models/homeModel")
-const fs = require("fs").promises;
-const path = require("path");
-const rootDir = require("../utils/path");
-const { json } = require("stream/consumers");
+const {favourite} = require("../models/favouriteModel");
+
+
 
 exports.getIndexPage = (req,res)=>{
     res.render("user/index");
@@ -16,25 +15,39 @@ exports.getHomePage = (req,res)=>{
     
 };
 
-exports.getHomeDetails = async function(req,res){
+exports.getHomeDetails = (req,res)=>{
     const homeId = req.params.id;
-    console.log(homeId);
-    const filepath = path.join(rootDir,"data","homes.json");
-    let allhomes;
-    let hometoshow;
-    try{
-        let data =  await fs.readFile(filepath);
-        allhomes = JSON.parse(data);
 
-        hometoshow = allhomes.find((home)=>{
-            return homeId === home.id;
+    Home.findById(homeId, (hometoshow) => {
+        if(!hometoshow){
+            console.log("home not found");
+            res.redirect("/home");
+            res.end();
+        }
+        res.render("user/homeDetails", { hometoshow });
+    })
+};
+
+exports.getFavourites = (req, res) => {
+    
+    Home.fetchAll((allHomes)=>{
+        favourite.getFavourites((allFavourites)=>{
+           const favouriteHomes = allFavourites.map((homeId)=>{
+                return allHomes.find((home)=> home.id === homeId )
+           });
+           res.render("user/favourites",{allHomes:favouriteHomes});
         })
+    })
     
-    }
-    catch(err){
-        console.log("error reading file : ",err);
-    }
-    
-    res.render("user/homeDetails", { hometoshow });
+};
 
+exports.postToFavourites = (req, res) => {
+    favourite.addToFavourite(req.body.id);
+    res.redirect("/favourites");
+};
+
+exports.removeFavourite = (req, res) => {
+
+    favourite.remove(req.params.id);
+    res.redirect("/favourites");
 };

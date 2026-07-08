@@ -24,8 +24,12 @@
                             <p class="meta">Price / night: <%=  home.price%></p>
                             <p class="meta">Location: <%=  home.location%></p>
                             <p class="meta">Rating: <span class="rating"><%=  home.rating%></span>/10</p>
-                            <a href="/home/<%= home.id%>"><button >Details </button></a>
+                            <div class="button-group">
+                                <a href="/home/<%= home.id%>"><button>Details</button></a>
+                                <div><%- include(`../partials/favouriteButton`,{homeId:home.id}) %></div>
+                            </div>
                         </div>
+                        
                     </div>
                 <%})
             %>

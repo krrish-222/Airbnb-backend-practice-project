@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Hosted Homes</title>
+    <title>Your favourites</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
         <%- include(`../partials/nav`) %>
     </header>
     <main>
-        <h1>Here are your hosted homes</h1>
+        <h1>Here are your favourites</h1>
         <div class="allRegisteredHomes">
             <% 
                 allHomes.forEach((home)=>{%>
@@ -24,16 +24,11 @@
                             <p class="meta">Price / night: <%=  home.price%></p>
                             <p class="meta">Location: <%=  home.location%></p>
                             <p class="meta">Rating: <span class="rating"><%=  home.rating%></span>/10</p>
-                            <div class="button-group">
-                                <form action="/host/edit/<%=home.id%>">
-                                    <button>Edit</button>
-                                </form>
-                                <form action="/host/delete/<%=home.id%>" method="POST">
-                                    <button style="background-color: red;">Delete</button>
-                                </form>
-                            </div>
+                            <a href="/home/<%= home.id%>" style="display: inline-block; margin-top: 12px;"><button>Details</button></a>
+                            <form action="/favourites/remove/<%=home.id%>" method="POST">
+                                <button type="submit" style="display: inline-block; margin-top: 12px;background-color: red;">Remove from Favourite</button>
+                            </form>
                         </div>
-                        
                     </div>
                 <%})
             %>

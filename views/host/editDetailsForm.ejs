@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Home</title>
+    <title>Edit Home</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="page-container">
@@ -11,39 +11,39 @@
         <%- include(`../partials/nav`) %>
     </div>
     <div class="container">
-        <h1>Add Your Home</h1>
-        <form action="/host/add-home" method="POST">
+        <h1>Edit Your Home Details</h1>
+        <form action="/host/edit/<%=home.id%>" method="POST">
             <div class="form-group">
                 <label for="houseName">House Name</label>
-                <input required type="text" placeholder="Enter House Name" name="houseName" id="houseName">
+                <input value="<%=home.houseName%>" required type="text" placeholder="Enter House Name" name="houseName" id="houseName">
             </div>
             
             <div class="form-group">
                 <label for="email">Email</label>
-                <input required type="email" placeholder="Enter your email" name="email" id="email">
+                <input value="<%=home.email%>" required type="email" placeholder="Enter your email" name="email" id="email">
             </div>
             
             <div class="form-group">
                 <label for="price">Price Per Night</label>
-                <input required type="number" placeholder="Enter Price per night" name="price" id="price">
+                <input value="<%=home.price%>" required type="number" placeholder="Enter Price per night" name="price" id="price">
             </div>
             
             <div class="form-group">
                 <label for="location">Location</label>
-                <input required type="text" placeholder="Enter Location" name="location" id="location">
+                <input value="<%=home.location%>" required type="text" placeholder="Enter Location" name="location" id="location">
             </div>
             
             <div class="form-group">
                 <label for="rating">Rating (0-10)</label>
-                <input type="range" min="0" max="10" placeholder="Rating" name="rating" id="rating">
+                <input value="<%=home.rating%>" type="range" min="0" max="10" placeholder="Rating" name="rating" id="rating">
             </div>
             
             <div class="form-group">
                 <label for="imageUrl">Image URL</label>
-                <input required type="url" placeholder="Enter image URL" name="imageUrl" id="imageUrl">
+                <input value="<%=home.imageUrl%>" required type="url" placeholder="Enter image URL" name="imageUrl" id="imageUrl">
             </div>
             
-            <input type="submit" value="Add Home">
+            <input type="submit" value="Update Details">
         </form>
     </div>
 </body>
