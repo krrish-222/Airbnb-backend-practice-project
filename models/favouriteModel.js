@@ -42,6 +42,7 @@ exports.favourite = class favourite{
                     console.log("error removing favourite");
                     return;
                 }
+                
             });
         })
     }

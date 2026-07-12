@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const rootDir = require("../utils/path");
+const { favourite } = require("./favouriteModel");
 const filePath = path.join(rootDir,"data","homes.json")
 
 exports.Home = class Home{
@@ -78,6 +79,7 @@ exports.Home = class Home{
                     console.log("Error writing to file : ",err);
                     return;
                 }
+                favourite.remove(homeId);
             });
         });
     }
