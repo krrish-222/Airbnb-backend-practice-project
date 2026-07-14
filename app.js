@@ -2,6 +2,7 @@ const express = require('express');
 const userRouter = require("./routes/userRouter");
 const hostRouter = require("./routes/hostRouter");
 const errorRouter = require("./routes/errorRouter");
+const {mongoconnect} = require('./utils/db');
 
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(userRouter);
 app.use(hostRouter);
 app.use(errorRouter);
 
-app.listen(3000,()=>{
-    console.log("server running on port 3000");
-})
+mongoconnect(()=>{
+    app.listen(3000,()=>{
+        console.log(`Server running on localhost:3000`);
+    });
+});

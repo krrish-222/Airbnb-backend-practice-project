@@ -1,8 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const rootDir = require("../utils/path");
+const { ObjectId } = require("mongodb");
+const { getDB } = require("../utils/db");
 const { favourite } = require("./favouriteModel");
-const filePath = path.join(rootDir,"data","homes.json")
 
 exports.Home = class Home{
     constructor(houseName,email,price,location,rating,imageUrl){
@@ -14,73 +12,27 @@ exports.Home = class Home{
         this.imageUrl = imageUrl;
     }
 
-    save() {
-        this.id = Math.random().toString();
-        Home.fetchAll((allHomes)=>{
-            allHomes.push(this);
-            fs.writeFile(filePath,JSON.stringify(allHomes),(err)=>{
-            if(err){
-                console.log("Error writing to file : ",err);
-                return;
-            }
-        });
-        })
-        
-    }
-    static fetchAll(callback){
-        fs.readFile(filePath,(err,data)=>{
-            if(err){
-                console.log("Error reading file ");
-                callback([]);
-            }
-            else{
-                callback(JSON.parse(data));
-            } 
-        });
+    save(){
+        const db = getDB();
+        return db.collection("homes").insertOne(this);
     }
 
-    static findById(homeId,callback){
-        Home.fetchAll((Homes)=>{
-            const foundhome = Homes.find((home)=>{
-                return home.id === homeId;
-            });
-            callback(foundhome);
-        })
+    static fetchAll(){
+        const db = getDB();
+        return db.collection("homes").find().toArray();
     }
-    static editHome(homeId,updatedHome){
-        Home.fetchAll((allHomes)=>{
-            const updatedAllHomes =  allHomes.filter((home)=>{
-                if(home.id !== homeId){
-                    return true;
-                }
-                return false;
-            })
-            updatedHome.id = homeId;
-            updatedAllHomes.push(updatedHome);
-            fs.writeFile(filePath,JSON.stringify(updatedAllHomes),(err)=>{
-            if(err){
-                console.log("Error writing to file : ",err);
-                return;
-            }
-        });
-        })
+
+    static findById(homeId){
+        const db = getDB();
+        return db.collection("homes").find({_id: new ObjectId(String(homeId)) }).next();
     }
+
+    static updateHome(homeId,updatedHome){
+        const db = getDB();
+        db.collection("homes").updateOne({_id: new ObjectId(String(homeId))},{$set: updatedHome});
+    }
+
     static deleteHome(homeId){
-        Home.fetchAll((allHomes)=>{
-            const updatedAllHomes =  allHomes.filter((home)=>{
-                if(home.id !== homeId){
-                    return true;
-                }
-                return false;
-            });
-            
-            fs.writeFile(filePath,JSON.stringify(updatedAllHomes),(err)=>{
-                if(err){
-                    console.log("Error writing to file : ",err);
-                    return;
-                }
-                favourite.remove(homeId);
-            });
-        });
+  
     }
 }

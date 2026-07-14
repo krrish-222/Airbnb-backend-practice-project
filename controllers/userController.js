@@ -8,36 +8,39 @@ exports.getIndexPage = (req,res)=>{
 };
 
 exports.getHomePage = (req,res)=>{
-    Home.fetchAll((allHomes)=>{
+    Home.fetchAll().then((allHomes)=>{
         res.render("user/home",{allHomes});
-    });
-    
+    }).catch(err=>{
+        console.log("Error in fetching homes : ",err);
+        res.end();
+    })
     
 };
 
 exports.getHomeDetails = (req,res)=>{
     const homeId = req.params.id;
-
-    Home.findById(homeId, (hometoshow) => {
-        if(!hometoshow){
-            console.log("home not found");
-            res.redirect("/home");
-            res.end();
-        }
+    Home.findById(homeId).then((hometoshow)=>{
         res.render("user/homeDetails", { hometoshow });
-    })
-};
+    }).catch((err)=>{
+        console.log("home not found",err);
+        res.redirect("/home");
+        res.end();
+    });
+}
 
 exports.getFavourites = (req, res) => {
     
-    Home.fetchAll((allHomes)=>{
+    Home.fetchAll().then((allHomes)=>{
         favourite.getFavourites((allFavourites)=>{
            const favouriteHomes = allFavourites.map((homeId)=>{
-                return allHomes.find((home)=> home.id === homeId )
+                return allHomes.find((home)=> home._id === homeId )
            });
            res.render("user/favourites",{allHomes:favouriteHomes});
         })
-    })
+    }).catch(err=>{
+        console.log("Error in fetching homes : ",err);
+        res.end();
+    });
     
 };
 

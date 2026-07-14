@@ -25,10 +25,10 @@
                             <p class="meta">Location: <%=  home.location%></p>
                             <p class="meta">Rating: <span class="rating"><%=  home.rating%></span>/10</p>
                             <div class="button-group">
-                                <form action="/host/edit/<%=home.id%>">
+                                <form action="/host/edit/<%=home._id%>">
                                     <button>Edit</button>
                                 </form>
-                                <form action="/host/delete/<%=home.id%>" method="POST">
+                                <form action="/host/delete/<%=home._id%>" method="POST">
                                     <button style="background-color: red;">Delete</button>
                                 </form>
                             </div>
