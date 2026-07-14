@@ -1,3 +1,4 @@
 data/homes.json
 data/favourites.json
 node_modules/
+.env
