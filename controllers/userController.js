@@ -31,11 +31,15 @@ exports.getHomeDetails = (req,res)=>{
 exports.getFavourites = (req, res) => {
     
     Home.fetchAll().then((allHomes)=>{
-        favourite.getFavourites((allFavourites)=>{
+        favourite.getFavourites().then((allFavourites)=>{
+            allFavourites = allFavourites.map((fav)=> fav.homeId);
            const favouriteHomes = allFavourites.map((homeId)=>{
-                return allHomes.find((home)=> home._id === homeId )
+                return allHomes.find((home)=> home._id.toString() === homeId )
            });
            res.render("user/favourites",{allHomes:favouriteHomes});
+        }).catch(err=>{
+            console.log("Error in fetching favourites");
+            res.end();
         })
     }).catch(err=>{
         console.log("Error in fetching homes : ",err);
@@ -45,12 +49,24 @@ exports.getFavourites = (req, res) => {
 };
 
 exports.postToFavourites = (req, res) => {
-    favourite.addToFavourite(req.body.id);
-    res.redirect("/favourites");
+    favourite.addToFavourite(req.body.id).then(()=>{
+        console.log("Home added to favourites succesfully");
+    }).catch((err)=>{
+        console.log("Error adding home to favourite: ",err);
+    })
+    .finally(()=>{
+        res.redirect("/favourites");
+    });
 };
 
 exports.removeFavourite = (req, res) => {
 
-    favourite.remove(req.params.id);
-    res.redirect("/favourites");
+    favourite.remove(req.params.id).then(()=>{
+        console.log("Home removed from favourites succesfully")
+    }).catch((err)=>{
+        console.log("Error removing home from favourites: ",err);
+    })
+    .finally(()=>{
+        res.redirect("/favourites");
+    });;
 };

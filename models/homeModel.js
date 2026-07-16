@@ -33,6 +33,7 @@ exports.Home = class Home{
     }
 
     static deleteHome(homeId){
-  
+        const db = getDB();
+        return db.collection("homes").deleteOne({_id: new ObjectId(String(homeId))});
     }
 }
