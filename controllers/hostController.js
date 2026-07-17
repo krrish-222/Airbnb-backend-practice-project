@@ -1,11 +1,13 @@
-const {Home} = require("../models/homeModel")
+const Home = require("../models/homeModel");
 
 exports.getAddHome = (req,res)=>{
     res.render("host/addHome");
 }
 
 exports.postAddHome = (req,res)=>{
-    const home = new Home(req.body.houseName,req.body.email,req.body.price,req.body.location,req.body.rating,req.body.imageUrl);
+    const {houseName,email,price,location,rating,imageUrl} = req.body;
+    const home = new Home({houseName,email,price,location,rating,imageUrl});
+
     home.save().then(()=>{
         console.log("Home saved successfully");
     }).catch((err)=>{
@@ -17,7 +19,7 @@ exports.postAddHome = (req,res)=>{
 };
 
 exports.getHostedHomes = (req,res)=>{
-    Home.fetchAll().then((allHomes)=>{
+    Home.find().then((allHomes)=>{
         res.render("host/hostHomeList",{allHomes});
     }).catch(err=>{
         console.log("Error in fetching homes : ",err);
@@ -27,25 +29,37 @@ exports.getHostedHomes = (req,res)=>{
 
 exports.editDetailsForm = (req,res)=>{
     const homeId =req.params.id;
-    Home.fetchAll().then((allHomes)=>{
-        Home.findById(homeId).then((home)=>{
-            res.render("host/editDetailsForm",{home});
-        });
+    Home.findById(homeId).then((home)=>{
+        res.render("host/editDetailsForm",{home});
+    });
         
-    }).catch(err=>{
-        console.log("Error in fetching homes : ",err);
-        res.end();
-    })
+    
 }
 
 exports.postEditDetails = (req,res)=>{
-    const editedhome = new Home(req.body.houseName,req.body.email,req.body.price,req.body.location,req.body.rating,req.body.imageUrl);
-    Home.updateHome(req.params.id,editedhome);
-    res.redirect("/host/hosted-homes");
+    const homeId = req.params.id;
+    const {houseName,email,price,location,rating,imageUrl} = req.body;
+    Home.updateOne(
+        { _id:homeId },
+        { $set: { houseName,email,price,location,rating,imageUrl } }      
+    ).then(()=>{
+        console.log("Home updated successfully")
+        res.redirect("/host/hosted-homes");
+    }).catch(err=>{
+        console.log("Error updating the home ",err);
+        res.redirect("/host/hosted-homes");
+    });
+    
 };
 
 exports.deleteHome = (req,res)=>{
-    Home.deleteHome(req.params.id);
-    res.redirect("/host/hosted-homes");
+    const homeId = req.params.id;
+    Home.findByIdAndDelete(homeId).then(()=>{
+        res.redirect("/host/hosted-homes");
+    }).catch(err=>{
+        console.log("Error in deleting home ",err)
+        res.redirect("/host/hosted-homes");
+    }
+    );
 };
 

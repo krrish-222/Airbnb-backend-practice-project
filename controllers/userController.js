@@ -1,5 +1,5 @@
-const {Home} = require("../models/homeModel")
-const {favourite} = require("../models/favouriteModel");
+const Home = require("../models/homeModel")
+const favourite = require("../models/favouriteModel");
 
 
 
@@ -8,7 +8,7 @@ exports.getIndexPage = (req,res)=>{
 };
 
 exports.getHomePage = (req,res)=>{
-    Home.fetchAll().then((allHomes)=>{
+    Home.find().then((allHomes)=>{
         res.render("user/home",{allHomes});
     }).catch(err=>{
         console.log("Error in fetching homes : ",err);
@@ -30,7 +30,7 @@ exports.getHomeDetails = (req,res)=>{
 
 exports.getFavourites = (req, res) => {
     
-    Home.fetchAll().then((allHomes)=>{
+    Home.find().then((allHomes)=>{
         favourite.getFavourites().then((allFavourites)=>{
             allFavourites = allFavourites.map((fav)=> fav.homeId);
            const favouriteHomes = allFavourites.map((homeId)=>{
