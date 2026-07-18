@@ -55,6 +55,7 @@ exports.postEditDetails = (req,res)=>{
 exports.deleteHome = (req,res)=>{
     const homeId = req.params.id;
     Home.findByIdAndDelete(homeId).then(()=>{
+        console.log("home deleted successfully")
         res.redirect("/host/hosted-homes");
     }).catch(err=>{
         console.log("Error in deleting home ",err)

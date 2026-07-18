@@ -1,5 +1,5 @@
 const Home = require("../models/homeModel")
-const favourite = require("../models/favouriteModel");
+const Favourite = require("../models/favouriteModel");
 
 
 
@@ -30,26 +30,21 @@ exports.getHomeDetails = (req,res)=>{
 
 exports.getFavourites = (req, res) => {
     
-    Home.find().then((allHomes)=>{
-        favourite.getFavourites().then((allFavourites)=>{
-            allFavourites = allFavourites.map((fav)=> fav.homeId);
-           const favouriteHomes = allFavourites.map((homeId)=>{
-                return allHomes.find((home)=> home._id.toString() === homeId )
-           });
-           res.render("user/favourites",{allHomes:favouriteHomes});
-        }).catch(err=>{
-            console.log("Error in fetching favourites");
-            res.end();
-        })
+    Favourite.find().populate("homeId").then((allFav)=>{
+        const allFavHomes = allFav.map(fav=>fav.homeId);
+        res.render("user/favourites",{allHomes:allFavHomes});
     }).catch(err=>{
-        console.log("Error in fetching homes : ",err);
+        console.log("Error fetching all favourites");
         res.end();
-    });
+    })
     
 };
 
 exports.postToFavourites = (req, res) => {
-    favourite.addToFavourite(req.body.id).then(()=>{
+    const homeId = req.body.id;
+    const favourite = new Favourite({homeId});
+
+    favourite.save().then(()=>{
         console.log("Home added to favourites succesfully");
     }).catch((err)=>{
         console.log("Error adding home to favourite: ",err);
@@ -60,8 +55,8 @@ exports.postToFavourites = (req, res) => {
 };
 
 exports.removeFavourite = (req, res) => {
-
-    favourite.remove(req.params.id).then(()=>{
+    const homeId = req.params.id;
+    Favourite.findOneAndDelete({homeId}).then(()=>{
         console.log("Home removed from favourites succesfully")
     }).catch((err)=>{
         console.log("Error removing home from favourites: ",err);
