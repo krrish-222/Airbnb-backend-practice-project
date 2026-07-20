@@ -4,7 +4,13 @@ const Favourite = require("../models/favouriteModel");
 
 
 exports.getIndexPage = (req,res)=>{
-    res.render("user/index");
+    Home.find().then((allHomes)=>{
+        res.render("user/index",{allHomes});
+    }).catch(err=>{
+        console.log("Error in fetching homes : ",err);
+        res.end();
+    })
+    
 };
 
 exports.getHomePage = (req,res)=>{

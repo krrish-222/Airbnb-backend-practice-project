@@ -5,19 +5,22 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "tailwind":"npx @tailwindcss/cli -i ./input.css -o ./public/output.css --watch",
+    "start": "nodemon app.js & npm run tailwind"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@tailwindcss/cli": "^4.3.3",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "mongodb": "^7.5.0",
     "mongoose": "^9.7.4",
     "mysql2": "^3.22.6",
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "tailwindcss": "^4.3.3"
   }
 }

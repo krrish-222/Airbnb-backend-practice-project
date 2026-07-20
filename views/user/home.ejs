@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Home page</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Welcome to Homepage</title>
+    <link rel="stylesheet" href="/output.css">
 </head>
-<body>
+<body class="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 text-[#243142] antialiased">
     
-    <header>
+    <header class="px-4 py-4">
         <%- include(`../partials/nav`) %>
     </header>
-    <main>
-        <h1>Here are your registered homes</h1>
-        <div class="allRegisteredHomes">
+    <main class="max-w-4xl mx-auto my-8 p-7 bg-white rounded-xl shadow-2xl">
+        <h1 class="text-2xl font-semibold mb-6">Here are your registered homes</h1>
+        <div class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <% 
                 allHomes.forEach((home)=>{%>
-                    <div class="homeCard">
-                        <img class="homeImage" src="<%=  home.imageUrl%>" alt="Home image">
-                        <div class="homeInfo">
-                            <h2 class="homeTitle"><%=  home.houseName%></h2>
-                            <p class="meta">Email: <%=  home.email%></p>
-                            <p class="meta">Price / night: <%=  home.price%></p>
-                            <p class="meta">Location: <%=  home.location%></p>
-                            <p class="meta">Rating: <span class="rating"><%=  home.rating%></span>/10</p>
-                            <div class="button-group">
-                                <a href="/home/<%= home._id%>"><button>Details</button></a>
+                    <div class="bg-white rounded-lg overflow-hidden shadow-md flex flex-col transition-transform transform hover:-translate-y-1 hover:shadow-xl">
+                        <img class="w-full h-40 object-cover bg-gray-100" src="<%=  home.imageUrl%>" alt="Home image">
+                        <div class="p-4 flex flex-col flex-1">
+                            <h2 class="text-lg font-semibold text-[#243142] mb-2"><%=  home.houseName%></h2>
+                            <p class="text-gray-500 text-sm">Email: <%=  home.email%></p>
+                            <p class="text-gray-500 text-sm">Price / night: <%=  home.price%></p>
+                            <p class="text-gray-500 text-sm">Location: <%=  home.location%></p>
+                            <p class="text-gray-500 text-sm">Rating: <span class="text-purple-600 font-bold"><%=  home.rating%></span>/10</p>
+                            <div class="flex gap-3 items-center justify-between mt-3 flex-wrap">
+                                <a href="/home/<%= home._id%>"><button class="px-3 py-2 bg-indigo-500 text-white rounded-md font-semibold hover:opacity-90">Details</button></a>
                                 <div><%- include(`../partials/favouriteButton`,{homeId:home._id}) %></div>
                             </div>
                         </div>
