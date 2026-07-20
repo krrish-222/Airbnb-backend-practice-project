@@ -70,6 +70,14 @@ header {
     background: transparent;
 }
 
+/* Brand in navbar */
+.site-nav .brand {
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 6px 10px;
+    margin-right: 6px;
+}
+
 /* Main Container */
 main {
     max-width: 1100px;

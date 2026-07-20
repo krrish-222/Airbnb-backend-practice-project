@@ -1,8 +1,6 @@
 const Home = require("../models/homeModel")
 const Favourite = require("../models/favouriteModel");
 
-
-
 exports.getIndexPage = (req,res)=>{
     Home.find().then((allHomes)=>{
         res.render("user/index",{allHomes});
@@ -22,7 +20,6 @@ exports.getHomePage = (req,res)=>{
     })
     
 };
-
 exports.getHomeDetails = (req,res)=>{
     const homeId = req.params.id;
     Home.findById(homeId).then((hometoshow)=>{
