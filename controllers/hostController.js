@@ -1,7 +1,7 @@
 const Home = require("../models/homeModel");
 
 exports.getAddHome = (req,res)=>{
-    res.render("host/addHome");
+    res.render("host/addHome",{currentPage:"add-home"});
 }
 
 exports.postAddHome = (req,res)=>{
@@ -20,7 +20,7 @@ exports.postAddHome = (req,res)=>{
 
 exports.getHostedHomes = (req,res)=>{
     Home.find().then((allHomes)=>{
-        res.render("host/hostHomeList",{allHomes});
+        res.render("host/hostHomeList",{allHomes,currentPage:"hosted-homes"});
     }).catch(err=>{
         console.log("Error in fetching homes : ",err);
         res.end();
@@ -30,7 +30,7 @@ exports.getHostedHomes = (req,res)=>{
 exports.editDetailsForm = (req,res)=>{
     const homeId =req.params.id;
     Home.findById(homeId).then((home)=>{
-        res.render("host/editDetailsForm",{home});
+        res.render("host/editDetailsForm",{home,currentPage:"hosted-homes"});
     });
         
     

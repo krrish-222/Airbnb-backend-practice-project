@@ -13,7 +13,7 @@ exports.getIndexPage = (req,res)=>{
 
 exports.getHomePage = (req,res)=>{
     Home.find().then((allHomes)=>{
-        res.render("user/home",{allHomes});
+        res.render("user/home",{allHomes, currentPage:"home"});
     }).catch(err=>{
         console.log("Error in fetching homes : ",err);
         res.end();
@@ -23,7 +23,7 @@ exports.getHomePage = (req,res)=>{
 exports.getHomeDetails = (req,res)=>{
     const homeId = req.params.id;
     Home.findById(homeId).then((hometoshow)=>{
-        res.render("user/homeDetails", { hometoshow });
+        res.render("user/homeDetails", { hometoshow,currentPage:"home" });
     }).catch((err)=>{
         console.log("home not found",err);
         res.redirect("/home");
@@ -35,7 +35,7 @@ exports.getFavourites = (req, res) => {
     
     Favourite.find().populate("homeId").then((allFav)=>{
         const allFavHomes = allFav.map(fav=>fav.homeId);
-        res.render("user/favourites",{allHomes:allFavHomes});
+        res.render("user/favourites",{allHomes:allFavHomes,currentPage:"favourite"});
     }).catch(err=>{
         console.log("Error fetching all favourites");
         res.end();
