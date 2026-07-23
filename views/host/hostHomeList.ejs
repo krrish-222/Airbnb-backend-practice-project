@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Hosted Homes</title>
-    <link rel="stylesheet" href="/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 text-[#243142] antialiased">
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white antialiased m-0 pt-20">
     
-    <header class="px-4 py-4">
+    <header class="py-0">
         <%- include(`../partials/nav`,{currentPage}) %>
     </header>
-    <main class="max-w-4xl mx-auto my-8 p-7 bg-white rounded-xl shadow-2xl">
-        <h1 class="text-2xl font-semibold mb-6">Here are your hosted homes</h1>
+    <main class="max-w-4xl mx-auto my-8 p-7 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 border border-white/10">
+        <h1 class="text-3xl font-bold mb-8 text-white">Here are your hosted homes</h1>
         <div class="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <% 
                 allHomes.forEach((home)=>{%>
-                    <div class="bg-white rounded-lg overflow-hidden shadow-md flex flex-col transition-transform transform hover:-translate-y-1 hover:shadow-xl">
-                        <img class="w-full h-40 object-cover bg-gray-100" src="<%=  home.imageUrl%>" alt="Home image">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden shadow-lg shadow-black/20 flex flex-col transition-all transform hover:-translate-y-1 hover:shadow-xl hover:bg-white/15 border border-white/10">
+                        <img class="w-full h-40 object-cover bg-slate-700" src="<%=  home.imageUrl%>" alt="Home image">
                         <div class="p-4 flex flex-col flex-1">
-                            <h2 class="text-lg font-semibold text-[#243142] mb-2"><%=  home.houseName%></h2>
-                            <p class="text-gray-500 text-sm">Email: <%=  home.email%></p>
-                            <p class="text-gray-500 text-sm">Price / night: <%=  home.price%></p>
-                            <p class="text-gray-500 text-sm">Location: <%=  home.location%></p>
-                            <p class="text-gray-500 text-sm">Rating: <span class="text-purple-600 font-bold"><%=  home.rating%></span>/10</p>
-                            <div class="flex gap-3 items-center justify-between mt-3">
-                                <form action="/host/edit/<%=home._id%>"><button class="inline-flex items-center justify-center px-3 py-1.5 bg-indigo-500 text-white rounded-md font-medium text-sm hover:opacity-90 transition cursor-pointer whitespace-nowrap">Edit</button></form>
-                                <form action="/host/delete/<%=home._id%>" method="POST"><button class="inline-flex items-center justify-center px-3 py-1.5 bg-red-600 text-white rounded-md font-medium text-sm hover:opacity-90 transition cursor-pointer whitespace-nowrap">Delete</button></form>
+                            <h2 class="text-lg font-semibold text-white mb-2"><%=  home.houseName%></h2>
+                            <p class="text-white/70 text-sm">Email: <%=  home.email%></p>
+                            <p class="text-white/70 text-sm">Price / night: ₹<%=  home.price%></p>
+                            <p class="text-white/70 text-sm">Location: <%=  home.location%></p>
+                            <p class="text-white/70 text-sm">Rating: <span class="text-sky-400 font-bold"><%=  home.rating%></span>/10</p>
+                            <div class="flex gap-3 items-center justify-between mt-4">
+                                <form action="/host/edit/<%=home._id%>"><button class="inline-flex items-center justify-center px-3 py-1.5 bg-sky-500 hover:bg-sky-400 text-white rounded-lg font-medium text-sm transition duration-200 cursor-pointer whitespace-nowrap">Edit</button></form>
+                                <form action="/host/delete/<%=home._id%>" method="POST"><button class="inline-flex items-center justify-center px-3 py-1.5 bg-rose-500 hover:bg-rose-400 text-white rounded-lg font-medium text-sm transition duration-200 cursor-pointer whitespace-nowrap">Delete</button></form>
                             </div>
                         </div>
                         

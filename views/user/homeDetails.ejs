@@ -4,37 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Details</title>
-    <link rel="stylesheet" href="/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 text-[#243142] antialiased">
-    <header class="px-4 py-4">
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white antialiased m-0 pt-20">
+    <header class="py-0">
         <%- include(`../partials/nav`,{currentPage}) %>
     </header>
-    <main class="max-w-4xl mx-auto my-8 p-7 bg-white rounded-xl shadow-2xl">
-        <h1 class="text-2xl font-semibold mb-6">Home Details</h1>
+    <main class="max-w-4xl mx-auto my-8 p-7 bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 border border-white/10">
+        <h1 class="text-3xl font-bold mb-8 text-white">Home Details</h1>
         <% if (hometoshow) { %>
             <div class="grid lg:grid-cols-2 gap-8 mt-5">
-                <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                    <img class="w-full h-80 object-cover bg-gray-100" src="<%= hometoshow.imageUrl %>" alt="<%= hometoshow.houseName %>">
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl overflow-hidden shadow-lg shadow-black/20 border border-white/10">
+                    <div class="w-full min-h-[320px] bg-slate-700">
+                        <img class="w-full h-full object-cover" src="<%= hometoshow.imageUrl %>" alt="<%= hometoshow.houseName %>" loading="lazy">
+                    </div>
                 </div>
-                <div class="bg-white rounded-lg p-6 shadow-md">
-                    <h2 class="text-xl font-semibold mb-4"><%= hometoshow.houseName %></h2>
-                    <p class="text-gray-500 mb-4">A perfect stay in <strong class="text-[#243142]"><%= hometoshow.location %></strong>.</p>
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 shadow-lg shadow-black/20 border border-white/10">
+                    <h2 class="text-2xl font-bold mb-4 text-white"><%= hometoshow.houseName %></h2>
+                    <p class="text-white/70 mb-6">A perfect stay in <strong class="text-sky-400"><%= hometoshow.location %></strong>.</p>
                     <ul class="space-y-3">
-                        <li class="bg-gray-100 rounded-md p-3 flex justify-between text-sm text-gray-600"><span>Price per night</span><strong class="text-[#243142]">₹<%= hometoshow.price %></strong></li>
-                        <li class="bg-gray-100 rounded-md p-3 flex justify-between text-sm text-gray-600"><span>Rating</span><strong class="text-[#243142]"><%= hometoshow.rating %>/10</strong></li>
-                        <li class="bg-gray-100 rounded-md p-3 flex justify-between text-sm text-gray-600"><span>Contact</span><strong class="text-[#243142]"><%= hometoshow.email %></strong></li>
-                        <li class="bg-gray-100 rounded-md p-3 flex justify-between text-sm text-gray-600"><span>Home ID</span><strong class="text-[#243142]"><%= hometoshow._id %></strong></li>
+                        <li class="bg-white/5 rounded-lg p-3 flex justify-between text-sm text-white/70 border border-white/10"><span>Price per night</span><strong class="text-sky-400">₹<%= hometoshow.price %></strong></li>
+                        <li class="bg-white/5 rounded-lg p-3 flex justify-between text-sm text-white/70 border border-white/10"><span>Rating</span><strong class="text-sky-400"><%= hometoshow.rating %>/10</strong></li>
+                        <li class="bg-white/5 rounded-lg p-3 flex justify-between text-sm text-white/70 border border-white/10"><span>Contact</span><strong class="text-sky-400"><%= hometoshow.email %></strong></li>
+                        <li class="bg-white/5 rounded-lg p-3 flex justify-between text-sm text-white/70 border border-white/10"><span>Home ID</span><strong class="text-white/60"><%= hometoshow._id %></strong></li>
                     </ul>
                     <div class="flex flex-wrap items-center justify-between gap-3 mt-6">
-                        <a class="inline-block px-4 py-2 bg-indigo-500 text-white rounded-md font-semibold" href="/home">Back to homes</a>
+                        <a class="inline-block px-4 py-2 bg-sky-500 hover:bg-sky-400 text-white rounded-lg font-semibold transition duration-200" href="/home">Back to homes</a>
                         <div><%- include(`../partials/favouriteButton`,{homeId:hometoshow._id}) %></div>
                     </div>
                 </div>
             </div>
         <% } else { %>
-            <p class="text-gray-500">Sorry, we could not find the selected home.</p>
-            <a class="inline-block px-4 py-2 bg-indigo-500 text-white rounded-md mt-4" href="/home">Back to homes</a>
+            <p class="text-white/70 mb-4">Sorry, we could not find the selected home.</p>
+            <a class="inline-block px-4 py-2 bg-sky-500 hover:bg-sky-400 text-white rounded-lg font-semibold transition duration-200 mt-4" href="/home">Back to homes</a>
             <% } %>
     </main>
 </body>

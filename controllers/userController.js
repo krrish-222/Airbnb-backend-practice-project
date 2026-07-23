@@ -3,7 +3,7 @@ const Favourite = require("../models/favouriteModel");
 
 exports.getIndexPage = (req,res)=>{
     Home.find().then((allHomes)=>{
-        res.render("user/index",{allHomes});
+        res.render("user/index",{allHomes,currentPage:false});
     }).catch(err=>{
         console.log("Error in fetching homes : ",err);
         res.end();

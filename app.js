@@ -3,6 +3,7 @@ const userRouter = require("./routes/userRouter");
 const hostRouter = require("./routes/hostRouter");
 const errorRouter = require("./routes/errorRouter");
 const { default: mongoose } = require('mongoose');
+const authRouter = require('./routes/authRouter');
 
 
 const app = express();
@@ -14,7 +15,10 @@ require("dotenv").config();
 
 app.use(userRouter);
 app.use(hostRouter);
+app.use(authRouter);
 app.use(errorRouter);
+
+
 mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         console.log("Connected to mongoDB successfully");
